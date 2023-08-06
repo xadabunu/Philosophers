@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 static int	ft_isnbr(char *str)
 {
@@ -26,7 +26,7 @@ static int	ft_isnbr(char *str)
 	return (1);
 }
 
-static int	only_numbers(int argc, char **argv)
+static int	only_numbers(char **argv)
 {
 	int	i;
 
@@ -52,17 +52,29 @@ static void	argc_error()
 	printf("\t b - the time (in ms) a philosopher can spend before eating.\n");
 	printf("\t c - how long (in ms) it takes a philosopher to eat.\n");
 	printf("\t d - how long (in ms) a philosopher sleeps.\n");
-	printf("\t e - how many times each philosopher has to eat for the program");
-	printf(" to finish.\n");
+	printf("\t e - how many times each philosopher has to eat for the ");
+	printf("simulation to stop without any philosophe dying (optionnal).\n");
+    printf("All these numbers must be stricly positive.\n");
 }
 
-int	check_args(int argc, char **argv)
+int	check_args(int argc, char **argv, t_philo *s)
 {
 	if (argc < 5 || argc > 6)
 		argc_error();
-	else if (only_numbers(argc, argv) == 0)
+	else if (only_numbers(argv) == 0)
 		argv_error();
 	else
+	{
+		gettimeofday(&(s->start), NULL);
+		s->n_philo = ft_atoi(argv[1]);
+		s->time_death = ft_atoi(argv[2]) * 1000;
+		s->time_eat = ft_atoi(argv[3]) * 1000;
+		s->time_sleep = ft_atoi(argv[4]) * 1000;
+		if (argc == 6)
+        	s->n_eat = ft_atoi(argv[5]);
+		else
+			s->n_eat = 0;
 		return (1);
+    }
 	return (0);
 }

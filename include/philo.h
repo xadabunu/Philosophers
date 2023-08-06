@@ -14,6 +14,20 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include <unistd.h>
 # include <pthread.h>
+# include <sys/time.h>
+
+typedef struct s_philo
+{
+    struct timeval	start;
+    int				n_philo;
+    float			time_death;
+    float			time_eat;
+    float			time_sleep;
+    int				n_eat;
+}   t_philo;
+
+int	ft_atoi(const char *str);
 
 #endif
