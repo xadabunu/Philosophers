@@ -16,17 +16,24 @@ int	check_args(int argc, char **argv, t_philo *s);
 
 void	*routine(void *arg)
 {
-	struct timeval t;
-	struct timeval u;
 	t_philo *s;
 
 	s = (t_philo *)arg;
-	gettimeofday(&u, NULL);
-	usleep(s->time_death * 1000);
-	gettimeofday(&t, NULL);
-	printf("time_death : %ld\n", t.tv_usec - u.tv_usec);
+	/*
+		algo
+		wait forks
+		take forks
+		eat
+		drop forks
+		sleep
+	*/
+
 	return (NULL);
 }
+
+/*
+	second routine starting with sleep depending on tt_eat == tt_sleep ?
+*/
 
 int	create_threads(t_philo *s)
 {
@@ -34,7 +41,6 @@ int	create_threads(t_philo *s)
 	pthread_t t;
 
 	i = 0;
-	printf("-> %f\n", s->time_death);
 	while (i < s->n_philo)
 	{
 		pthread_create(&t, NULL, &routine, s);
@@ -43,23 +49,34 @@ int	create_threads(t_philo *s)
 	return (0);
 }
 
+int	ft_sleep(unsigned int time)
+{
+	while (time > ONE_SECOND)
+	{
+		if (usleep(ONE_SECOND) == -1)
+			return (-1);
+		time -= ONE_SECOND;
+	}
+	if (usleep(time) == -1)
+		return (-1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_philo	s;
-	//pthread_t t;
+	pthread_t *t;
 
 	if (check_args(argc, argv, &s) == 0)
 		return (1);
 
+	t = malloc(sizeof(*t) * s.n_philo);
+	pthread_mutex_t	mutex;
+	pthread_mutex_init(&mutex, NULL);
+	pthread_mutex_lock(&mutex);
+	pthread_mutex_unlock(&mutex);
+	pthread_mutex_destroy(&mutex);
 
-	struct timeval time;
-	struct timeval u;
-	gettimeofday(&u, NULL);
-	usleep(s.time_death * 1000);
-	gettimeofday(&time, NULL);
-
-	printf("time_death : %ld\n", time.tv_sec - u.tv_sec);
-	
 	// if (create_threads(&s) == -1)
 	// 	return (2);
 	//pthread_create(&t, NULL, &routine, &s);

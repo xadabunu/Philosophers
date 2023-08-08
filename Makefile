@@ -12,7 +12,9 @@
 
 NAME	:=	philo
 
-FILES	:=	main.c
+FILES	:=	main.c \
+			check_cmd.c \
+			utils.c
 
 S_DIR	=	src
 B_DIR	=	build
@@ -36,9 +38,8 @@ ${NAME}	:	${OBJS}
 m_dir	:
 			mkdir -p ${B_DIR}
 
-${OBJS}	:
-			m_dir
-			${CC} ${LDFLAGS} ${CFLAGS} -c $< -o $@
+${OBJS}	:	m_dir
+			${CC} ${CFLAGS} ${LDFLAGS} -c $< -o $@
 
 clean	:
 			${RM} ${B_DIR}

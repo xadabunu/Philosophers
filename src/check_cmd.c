@@ -40,36 +40,29 @@ static int	only_numbers(char **argv)
 	return (1);
 }
 
-static void	argv_error()
+static void	error_message()
 {
-	printf("Only positive numbers can be taken as parameters.\n");
-}
-
-static void	argc_error()
-{
-	printf("Usage : ./philo <a> <b> <c> <d> [<e>] with :\n");
-	printf("\t a - the number of philosophers/forks at the table.\n");
-	printf("\t b - the time (in ms) a philosopher can spend before eating.\n");
-	printf("\t c - how long (in ms) it takes a philosopher to eat.\n");
-	printf("\t d - how long (in ms) a philosopher sleeps.\n");
-	printf("\t e - how many times each philosopher has to eat for the ");
+	printf("Usage : ./philo <A> <B> C> <D> [<E>] with :\n");
+	printf("\t A - the number of philosophers/forks at the table.\n");
+	printf("\t B - the time (in ms) a philosopher can spend before eating.\n");
+	printf("\t C - how long (in ms) it takes a philosopher to eat.\n");
+	printf("\t D - how long (in ms) a philosopher sleeps.\n");
+	printf("\t E - how many times each philosopher has to eat for the ");
 	printf("simulation to stop without any philosophe dying (optionnal).\n");
     printf("All these numbers must be stricly positive.\n");
 }
 
 int	check_args(int argc, char **argv, t_philo *s)
 {
-	if (argc < 5 || argc > 6)
-		argc_error();
-	else if (only_numbers(argv) == 0)
-		argv_error();
+	if (argc < 5 || argc > 6 || only_numbers(argv) == 0)
+		error_message();
 	else
 	{
 		gettimeofday(&(s->start), NULL);
 		s->n_philo = ft_atoi(argv[1]);
-		s->time_death = ft_atoi(argv[2]) * 1000;
-		s->time_eat = ft_atoi(argv[3]) * 1000;
-		s->time_sleep = ft_atoi(argv[4]) * 1000;
+		s->tt_die = ft_atoi(argv[2]) * 1000;
+		s->tt_eat = ft_atoi(argv[3]) * 1000;
+		s->tt_sleep = ft_atoi(argv[4]) * 1000;
 		if (argc == 6)
         	s->n_eat = ft_atoi(argv[5]);
 		else

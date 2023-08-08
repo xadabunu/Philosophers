@@ -18,15 +18,23 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define ONE_SECOND 1000000
+
 typedef struct s_philo
 {
     struct timeval	start;
-    int				n_philo;
-    float			time_death;
-    float			time_eat;
-    float			time_sleep;
-    int				n_eat;
+    unsigned int	n_philo;
+    unsigned int	tt_die;
+    unsigned int	tt_eat;
+    unsigned int	tt_sleep;
+    unsigned int	n_eat;
 }   t_philo;
+
+typedef struct s_forks
+{
+    int left;
+    int right;
+}	t_forks;
 
 int	ft_atoi(const char *str);
 
