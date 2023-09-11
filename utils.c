@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isspace(const char c)
+#include "philo.h"
+
+int	ft_isspace(const char c)
 {
 	return (c == '\n' || c == '\t' || c == '\v' || c == ' ' || c == '\r' \
 	|| c == '\f');
@@ -44,4 +46,37 @@ int	ft_atoi(const char *str)
 		++i;
 	}
 	return (sign * res);
+}
+
+long	get_timestamp(t_time *start)
+{
+	t_time			now;
+	unsigned long	now_ms;
+	unsigned long	start_ms;
+
+	if (gettimeofday(&now, NULL) == -1)
+		return (-1);
+	now_ms = now.tv_sec * 1000 + now.tv_usec / 1000;
+	start_ms = start->tv_sec * 1000 + start->tv_usec / 1000;
+	return (now_ms - start_ms);
+}
+
+int	ft_usleep(unsigned int time)
+{
+	while (time > ONE_SECOND)
+	{
+		if (usleep(ONE_SECOND) == -1)
+			return (-1);
+		time -= ONE_SECOND;
+	}
+	if (usleep(time) == -1)
+		return (-1);
+	return (0);
+}
+
+void	philo_print(unsigned long timestamp, const t_philo *philo, char *state)
+{
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%lu %d %s\n", timestamp, philo->n, state);
+	pthread_mutex_unlock(philo->print_mutex);
 }

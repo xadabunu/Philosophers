@@ -13,36 +13,25 @@
 NAME	:=	philo
 
 FILES	:=	main.c \
+			actions.c \
 			check_cmd.c \
+			setup.c \
 			utils.c
 
-S_DIR	=	src
-B_DIR	=	build
-I_DIR	=	include
-
-SRCS	:=	${addprefix ${S_DIR}/, ${FILES}}
-
 CFLAGS	=	-Wall -Wextra -Werror -pthread
+LDLIBS	=	-lpthread
 
-LDFLAGS	:=	${addprefix -L, ${I_DIR}}
-
-OBJS	:=	${SRCS:${S_DIR}/%.c=${B_DIR}/%.o}
+OBJS	:=	${FILES:.c=.o}
 
 RM		=	rm -rf
 
 all		:	${NAME}
 
 ${NAME}	:	${OBJS}
-			${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@
-
-m_dir	:
-			mkdir -p ${B_DIR}
-
-${OBJS}	:	m_dir
-			${CC} ${CFLAGS} ${LDFLAGS} -c $< -o $@
+			${CC} ${OBJS} ${LDLIBS} -o ${NAME}
 
 clean	:
-			${RM} ${B_DIR}
+			${RM} ${OBJS}
 
 fclean	:	clean
 			${RM} ${NAME}
