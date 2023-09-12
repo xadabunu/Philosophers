@@ -38,4 +38,4 @@ fclean	:	clean
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean re m_dir
+.PHONY	:	all clean fclean re

@@ -48,35 +48,46 @@ int	ft_atoi(const char *str)
 	return (sign * res);
 }
 
-long	get_timestamp(t_time *start)
+size_t	get_timestamp(const uintmax_t start_ms)
 {
 	t_time			now;
 	unsigned long	now_ms;
-	unsigned long	start_ms;
 
-	if (gettimeofday(&now, NULL) == -1)
-		return (-1);
+	gettimeofday(&now, NULL);
 	now_ms = now.tv_sec * 1000 + now.tv_usec / 1000;
-	start_ms = start->tv_sec * 1000 + start->tv_usec / 1000;
 	return (now_ms - start_ms);
 }
 
-int	ft_usleep(unsigned int time)
+int	ft_usleep(uintmax_t tt_sleep, t_data *data)
 {
-	while (time > ONE_SECOND)
+	uintmax_t	start_ms;
+	uintmax_t	time_slept;
+	t_time		now;
+
+	start_ms =  get_timestamp(0);
+	time_slept = 0;
+	while(time_slept < tt_sleep)
 	{
-		if (usleep(ONE_SECOND) == -1)
+		if (data->all_alive == false)
 			return (-1);
-		time -= ONE_SECOND;
+		usleep(100);
+		gettimeofday(&now, NULL);
+		time_slept = get_timestamp(start_ms);
 	}
-	if (usleep(time) == -1)
-		return (-1);
 	return (0);
 }
 
-void	philo_print(unsigned long timestamp, const t_philo *philo, char *state)
+void	philo_print(const t_philo *philo, char *state)
 {
-	pthread_mutex_lock(philo->print_mutex);
-	printf("%lu %d %s\n", timestamp, philo->n, state);
-	pthread_mutex_unlock(philo->print_mutex);
+	unsigned long	timestamp;
+	t_data			*data;
+
+	data = philo->data;
+	pthread_mutex_lock(&(data->print_mutex));
+	if (data->all_alive)
+	{
+		timestamp = get_timestamp(data->start);
+		printf("%lu %d %s\n", timestamp, philo->n, state);
+	}
+	pthread_mutex_unlock(&(data->print_mutex));
 }
