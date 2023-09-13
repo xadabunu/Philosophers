@@ -83,7 +83,7 @@ int	check_args(int argc, char **argv, t_data *s)
 	t_mutex	printf_mutex;
 	t_time	test;
 
-	if (argc < 5 || argc > 6 || only_numbers(argv) == false)
+	if (argc < 5 || argc > 6 || !(only_numbers(argv)))
 		return (error_message());
 	else if (gettimeofday(&test, NULL) != -1)
 	{

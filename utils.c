@@ -68,7 +68,7 @@ int	ft_usleep(uintmax_t tt_sleep, t_data *data)
 	time_slept = 0;
 	while(time_slept < tt_sleep)
 	{
-		if (data->all_alive == false)
+		if (!(data->all_alive))
 			return (-1);
 		usleep(100);
 		gettimeofday(&now, NULL);

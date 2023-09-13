@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:58:53 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/13 16:29:27 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:57:13 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	look_for_death(t_data *data, t_philo *philos)
 {
 	size_t	i;
 
-	while (data->all_alive == true)
+	while (data->all_alive)
 	{
-		i = 0;
 		usleep(100);
+		i = 0;
 		while (i < data->n_philo)
 		{
 			if (data->tt_die < get_timestamp(0) - philos[i].last_meal)
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	philos = setup_philos(&data, forks);
 	if (create_threads(&data, philos) == -1)
 		return (clear(&data, forks, philos));
-	while (data.all_alive == true)
+	while (data.all_alive)
 	{
 		if (look_for_death(&data, philos) == -1)
 			break ;

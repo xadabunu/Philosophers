@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:59:12 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/07/22 17:59:12 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:15:06 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_fork	*init_forks(t_data *data);
 int	create_threads(t_data *data, t_philo *ph);
 
 int	ph_sleeps(const t_philo *philo);
-int	ph_takes_fork(const t_philo *philo, int hand);
 int	ph_eats(t_philo *philo);
 int	ph_starts_thinking(const t_philo *philo);
 

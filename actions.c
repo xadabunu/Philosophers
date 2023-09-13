@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:55 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/12 23:20:24 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:56:41 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,22 @@ int	ph_sleeps(const t_philo *philo)
 	return (ft_usleep(philo->data->tt_sleep, philo->data));
 }
 
-int	ph_takes_fork(const t_philo *philo, int hand)
-{
-	if (hand == LEFT)
-		pthread_mutex_lock(&(philo->left_fork->m));
-	else
-		pthread_mutex_lock(&(philo->right_fork->m));
-	philo_print(philo, FORK);
-	return (0);
-}
-
 int	ph_eats(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->left_fork->m));
 	philo_print(philo, FORK);
-	pthread_mutex_lock(&(philo->right_fork->m));
-	philo_print(philo, FORK);
-	philo->last_meal = get_timestamp(0);
-	philo_print(philo, EAT);
-	ft_usleep(philo->data->tt_eat, philo->data);
+	if (philo->left_fork == philo->right_fork)
+		ft_usleep(philo->data->tt_die + 100, philo->data);
+	else
+	{
+		pthread_mutex_lock(&(philo->right_fork->m));
+		philo_print(philo, FORK);
+		philo->last_meal = get_timestamp(0);
+		philo_print(philo, EAT);
+		ft_usleep(philo->data->tt_eat, philo->data);
+		pthread_mutex_unlock(&(philo->right_fork->m));
+	}
 	pthread_mutex_unlock(&(philo->left_fork->m));
-	pthread_mutex_unlock(&(philo->right_fork->m));
 	return (0);
 }
 
