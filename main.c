@@ -6,13 +6,20 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:58:53 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/07/22 17:58:53 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:29:27 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int	check_args(int argc, char **argv, t_data *s);
+
+int	dead_philo(t_data *data, t_philo philo)
+{
+	data->all_alive = false;
+	printf("%ld %d died\n", get_timestamp(data->start), philo.n);
+	return (-1);
+} 
 
 int	clear(t_data *data, t_fork *forks, t_philo *philos)
 {
@@ -37,8 +44,7 @@ int	clear(t_data *data, t_fork *forks, t_philo *philos)
 
 int	look_for_death(t_data *data, t_philo *philos)
 {
-	unsigned int	i;
-	uintmax_t	now_ms;
+	size_t	i;
 
 	while (data->all_alive == true)
 	{
@@ -47,12 +53,7 @@ int	look_for_death(t_data *data, t_philo *philos)
 		while (i < data->n_philo)
 		{
 			if (data->tt_die < get_timestamp(0) - philos[i].last_meal)
-			{
-				data->all_alive = false;
-				now_ms = get_timestamp(data->start);
-				printf("%ld %d died\n", now_ms, philos[i].n);
-				break ;
-			}
+				return (dead_philo(data, philos[i]));
 			++i;
 		}
 	}
