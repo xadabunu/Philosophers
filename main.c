@@ -12,16 +12,14 @@
 
 #include "philo.h"
 
-int	check_args(int argc, char **argv, t_data *s);
-
-int	dead_philo(t_data *data, t_philo philo)
+static int	dead_philo(t_data *data, t_philo philo)
 {
 	data->all_alive = false;
-	printf("%ld %d died\n", get_timestamp(data->start), philo.n);
+	printf("%ld %ld died\n", get_timestamp(data->start), philo.n);
 	return (-1);
 } 
 
-int	clear(t_data *data, t_fork *forks, t_philo *philos)
+static int	clear(t_data *data, t_fork *forks, t_philo *philos)
 {
 	size_t	i;
 
