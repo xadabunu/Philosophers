@@ -49,15 +49,11 @@ int	ft_usleep(uintmax_t tt_sleep, t_data *data)
 
 void	philo_print(const t_philo *philo, char *state)
 {
-	unsigned long	timestamp;
 	t_data			*data;
 
 	data = philo->data;
 	pthread_mutex_lock(&(data->print_mutex));
 	if (data->all_alive)
-	{
-		timestamp = get_timestamp(data->start);
-		printf("%lu %ld %s\n", timestamp, philo->n, state);
-	}
+		printf("%lu %ld %s\n", get_timestamp(data->start), philo->n, state);
 	pthread_mutex_unlock(&(data->print_mutex));
 }

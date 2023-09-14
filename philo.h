@@ -24,7 +24,7 @@
 # define EAT	"is eating"
 # define FORK	"has taken a fork"
 # define SLEEP	"is sleeping"
-# define THINK	"starts thinking"
+# define THINK	"is thinking"
 # define DIE	"died"
 
 typedef pthread_mutex_t t_mutex;

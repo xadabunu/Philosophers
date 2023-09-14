@@ -40,9 +40,10 @@ static int	clear(t_data *data, t_fork *forks, t_philo *philos)
 	return (0);
 }
 
-int	look_for_death(t_data *data, t_philo *philos)
+static int	look_for_death(t_data *data, t_philo *philos)
 {
-	size_t	i;
+	size_t		i;
+	uintmax_t	ts;
 
 	while (data->all_alive)
 	{
@@ -50,7 +51,8 @@ int	look_for_death(t_data *data, t_philo *philos)
 		i = 0;
 		while (i < data->n_philo)
 		{
-			if (data->tt_die < get_timestamp(0) - philos[i].last_meal)
+			ts = get_timestamp(0) - philos[i].last_meal;
+			if (data->tt_die < ts)
 				return (dead_philo(data, philos[i]));
 			if (data->n_philo == data->done_eating)
 			{
@@ -68,18 +70,18 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_fork	*forks;
 	t_philo	*philos;
-
+/* is sleeping affiché après que dernier philo ait mangé + timing print death ? */
 	if (check_args(argc, argv, &data) == -1)
 		return (1);
 	forks = init_forks(&data);
+	if (!forks)
+		return (1);
 	philos = setup_philos(&data, forks);
+	if (!philos)
+		return (clear(&data, forks, NULL));
 	if (create_threads(&data, philos) == -1)
 		return (clear(&data, forks, philos));
-	while (data.all_alive)
-	{
-		if (look_for_death(&data, philos) == -1)
-			break ;
-	}
+	look_for_death(&data, philos);
 	clear(&data, forks, philos);
 	return (0);
 }
