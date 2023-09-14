@@ -43,6 +43,7 @@ static void	set_argv(t_data *data, char **argv, int argc)
 		data->n_eat = ft_strtoumax(argv[5]);
 	else
 		data->n_eat = 0;
+	data->done_eating = 0;
 }
 
 static bool	only_numbers(char **argv)

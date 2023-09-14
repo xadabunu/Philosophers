@@ -38,6 +38,7 @@ typedef struct s_data
     uintmax_t			tt_eat;
     uintmax_t			tt_sleep;
     _Atomic uintmax_t	n_eat;
+	_Atomic	uintmax_t	done_eating;
     _Atomic bool		all_alive;
 	t_mutex				print_mutex;
 }   t_data;
@@ -52,6 +53,8 @@ typedef struct s_philo
 	pthread_t	t;
 	uintmax_t	n;
 	uintmax_t	last_meal;
+	uintmax_t	n_eat;
+	uintmax_t	n_eaten;
 	t_data		*data;
 	t_fork		*left_fork;
 	t_fork		*right_fork;

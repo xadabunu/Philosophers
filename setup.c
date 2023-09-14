@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:41 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/13 20:12:43 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:35:58 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ t_philo	*setup_philos(t_data *data, t_fork *forks)
 		{
 			philos[i].last_meal = data->start;
 			philos[i].data = data;
+			philos[i].n_eat = data->n_eat;
+			philos[i].n_eaten = 0;
 			philos[i].left_fork = forks + i;
 			if (i == data->n_philo - 1)
 				philos[i].right_fork = forks;

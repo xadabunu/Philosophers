@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:55 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/13 19:56:41 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:38:07 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ph_eats(t_philo *philo)
 		philo->last_meal = get_timestamp(0);
 		philo_print(philo, EAT);
 		ft_usleep(philo->data->tt_eat, philo->data);
+		if (philo->n_eat > 0 && ++(philo->n_eaten) == philo->n_eat)
+			++(philo->data->done_eating);
 		pthread_mutex_unlock(&(philo->right_fork->m));
 	}
 	pthread_mutex_unlock(&(philo->left_fork->m));

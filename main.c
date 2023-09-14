@@ -52,6 +52,11 @@ int	look_for_death(t_data *data, t_philo *philos)
 		{
 			if (data->tt_die < get_timestamp(0) - philos[i].last_meal)
 				return (dead_philo(data, philos[i]));
+			if (data->n_philo == data->done_eating)
+			{
+				data->all_alive = false;
+				return (-1);
+			}
 			++i;
 		}
 	}
