@@ -12,10 +12,24 @@
 
 #include "philo.h"
 
+static int	done_eating(t_data *data)
+{
+	uintmax_t	ts;
+
+	data->all_alive = false;
+	pthread_mutex_lock(&(data->print_mutex));
+	ts = get_timestamp(data->start);
+	printf("%ld all philos ate %ld times\n", ts, data->n_eat);
+	pthread_mutex_unlock(&(data->print_mutex));
+	return (-1);
+}
+
 static int	dead_philo(t_data *data, t_philo philo)
 {
 	data->all_alive = false;
-	printf("%ld %ld died\n", get_timestamp(data->start), philo.n);
+	pthread_mutex_lock(&(data->print_mutex));
+	printf("%lu %lu died\n", get_timestamp(data->start), philo.n);
+	pthread_mutex_unlock(&(data->print_mutex));
 	return (-1);
 } 
 
@@ -23,16 +37,20 @@ static int	clear(t_data *data, t_fork *forks, t_philo *philos)
 {
 	size_t	i;
 
+	i = 0;
 	if (philos != NULL)
 	{
-		i = 0;
 		while (i < data->n_philo)
 		{
 			pthread_join(philos[i].t, NULL);
 			++i;
 		}
-		while (i-- > 0)
-			pthread_mutex_destroy(&(philos[i].left_fork->m));
+		i = 0;
+	}
+	while (i < data->n_philo)
+	{
+		pthread_mutex_destroy(&(philos[i].left_fork->m));
+		++i;
 	}
 	pthread_mutex_destroy(&(data->print_mutex));
 	free(forks);
@@ -42,25 +60,19 @@ static int	clear(t_data *data, t_fork *forks, t_philo *philos)
 
 static int	look_for_death(t_data *data, t_philo *philos)
 {
-	size_t		i;
-	uintmax_t	ts;
+	size_t	i;
 
 	while (data->all_alive)
 	{
-		usleep(100);
 		i = 0;
 		while (i < data->n_philo)
 		{
-			ts = get_timestamp(0) - philos[i].last_meal;
-			if (data->tt_die < ts)
+			if (data->tt_die < get_timestamp(philos[i].last_meal))
 				return (dead_philo(data, philos[i]));
-			if (data->n_philo == data->done_eating)
-			{
-				data->all_alive = false;
-				return (-1);
-			}
 			++i;
 		}
+		if (data->n_philo == data->done_eating)
+			return (done_eating(data));
 	}
 	return (-1);
 }
@@ -70,7 +82,7 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_fork	*forks;
 	t_philo	*philos;
-/* is sleeping affiché après que dernier philo ait mangé + timing print death ? */
+
 	if (check_args(argc, argv, &data) == -1)
 		return (1);
 	forks = init_forks(&data);

@@ -25,7 +25,6 @@
 # define FORK	"has taken a fork"
 # define SLEEP	"is sleeping"
 # define THINK	"is thinking"
-# define DIE	"died"
 
 typedef pthread_mutex_t t_mutex;
 typedef struct timeval	t_time;
@@ -60,17 +59,17 @@ typedef struct s_philo
 	t_fork		*right_fork;
 }	t_philo;
 
-int		ft_usleep(uintmax_t time, t_data *data);
-size_t	get_timestamp(const uintmax_t time);
-void	philo_print(const t_philo *philo, char *state);
+int			ft_usleep(uintmax_t time, t_data *data);
+uintmax_t	get_timestamp(const uintmax_t time);
+void		philo_print(const t_philo *philo, char *state);
 
-int		check_args(int argc, char **argv, t_data *s);
-t_philo	*setup_philos(t_data *data, t_fork *forks);
-t_fork	*init_forks(t_data *data);
-int		create_threads(t_data *data, t_philo *ph);
+int			check_args(int argc, char **argv, t_data *s);
+t_philo		*setup_philos(t_data *data, t_fork *forks);
+t_fork		*init_forks(t_data *data);
+int			create_threads(t_data *data, t_philo *ph);
 
-int		ph_sleeps(const t_philo *philo);
-int		ph_eats(t_philo *philo);
-int		ph_starts_thinking(const t_philo *philo);
+int			ph_sleeps(const t_philo *philo);
+int			ph_eats(t_philo *philo);
+int			ph_starts_thinking(const t_philo *philo);
 
 #endif

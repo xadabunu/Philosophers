@@ -18,10 +18,10 @@ int	ft_isspace(const char c)
 	|| c == '\f');
 }
 
-size_t	get_timestamp(const uintmax_t start_ms)
+uintmax_t	get_timestamp(const uintmax_t start_ms)
 {
-	t_time			now;
-	unsigned long	now_ms;
+	t_time		now;
+	uintmax_t	now_ms;
 
 	gettimeofday(&now, NULL);
 	now_ms = now.tv_sec * 1000 + now.tv_usec / 1000;
@@ -54,6 +54,6 @@ void	philo_print(const t_philo *philo, char *state)
 	data = philo->data;
 	pthread_mutex_lock(&(data->print_mutex));
 	if (data->all_alive)
-		printf("%lu %ld %s\n", get_timestamp(data->start), philo->n, state);
+		printf("%lu %lu %s\n", get_timestamp(data->start), philo->n, state);
 	pthread_mutex_unlock(&(data->print_mutex));
 }

@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:41 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/14 21:49:51 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:43:17 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ static void	*routine(void *arg)
 	while (data->all_alive)
 	{
 		ph_eats(ph);
-		ph_sleeps(ph);
-		ph_starts_thinking(ph);
+		if (data->all_alive)
+			ph_sleeps(ph);
+		if (data->all_alive)
+			ph_starts_thinking(ph);
 	}
 	return (NULL);
 }
