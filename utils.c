@@ -34,9 +34,9 @@ int	ft_usleep(uintmax_t tt_sleep, t_data *data)
 	uintmax_t	time_slept;
 	t_time		now;
 
-	start_ms =  get_timestamp(0);
+	start_ms = get_timestamp(0);
 	time_slept = 0;
-	while(time_slept < tt_sleep)
+	while (time_slept < tt_sleep)
 	{
 		if (!(data->all_alive))
 			return (-1);

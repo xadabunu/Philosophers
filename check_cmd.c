@@ -66,7 +66,7 @@ static bool	only_numbers(char **argv)
 	return (true);
 }
 
-static int	error_message()
+static int	error_message(void)
 {
 	printf("Usage : \"./philo <A> <B> <C> <D> [<E>]\" with :\n");
 	printf("\t A - the number of philosophers around the table.\n");
@@ -75,7 +75,7 @@ static int	error_message()
 	printf("\t D - how long (in ms) a philosopher sleeps.\n");
 	printf("\t E - how many times each philosopher has to eat for the ");
 	printf("simulation to stop without any philosopher dying (optionnal).\n");
-    printf("All these numbers must be stricly positive integers.\n");
+	printf("All these numbers must be stricly positive integers.\n");
 	return (-1);
 }
 

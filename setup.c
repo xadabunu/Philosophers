@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:41 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/15 11:43:17 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:26:23 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	*routine(void *arg)
 {
-	t_philo *ph;
+	t_philo	*ph;
 	t_data	*data;
 
 	ph = (t_philo *)arg;
 	data = ph->data;
-	if (ph->n % 2 == 0) // bitwise ?
+	if (ph->n % 2 == 0)
 	{
 		ph_starts_thinking(ph);
 		ft_usleep(data->tt_eat / 2, data);
@@ -47,7 +47,7 @@ int	create_threads(t_data *data, t_philo *ph)
 			printf("check\n");
 			if (i > 0)
 			{
-				while(--i > 0)
+				while (--i > 0)
 					pthread_join(ph[i].t, NULL);
 				pthread_join(ph[i].t, NULL);
 			}

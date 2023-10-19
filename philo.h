@@ -26,21 +26,21 @@
 # define SLEEP	"is sleeping"
 # define THINK	"is thinking"
 
-typedef pthread_mutex_t t_mutex;
+typedef pthread_mutex_t	t_mutex;
 typedef struct timeval	t_time;
 
 typedef struct s_data
 {
-    uintmax_t			start;
-    uintmax_t			n_philo;
+	uintmax_t			start;
+	uintmax_t			n_philo;
 	uintmax_t			tt_die;
-    uintmax_t			tt_eat;
-    uintmax_t			tt_sleep;
-    _Atomic uintmax_t	n_eat;
-	_Atomic	uintmax_t	done_eating;
-    _Atomic bool		all_alive;
+	uintmax_t			tt_eat;
+	uintmax_t			tt_sleep;
+	_Atomic uintmax_t	n_eat;
+	_Atomic uintmax_t	done_eating;
+	_Atomic bool		all_alive;
 	t_mutex				print_mutex;
-}   t_data;
+}	t_data;
 
 typedef struct s_fork
 {

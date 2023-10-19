@@ -31,7 +31,7 @@ static int	dead_philo(t_data *data, t_philo philo)
 	printf("%lu %lu died\n", get_timestamp(data->start), philo.n);
 	pthread_mutex_unlock(&(data->print_mutex));
 	return (-1);
-} 
+}
 
 static int	clear(t_data *data, t_fork *forks, t_philo *philos)
 {
