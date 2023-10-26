@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:41 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/10/19 14:26:23 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/10/26 23:30:16 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	create_threads(t_data *data, t_philo *ph)
 	{
 		if (pthread_create(&(ph[i].t), NULL, &routine, ph + i) != 0)
 		{
-			printf("check\n");
 			if (i > 0)
 			{
 				while (--i > 0)
@@ -69,7 +68,13 @@ t_fork	*init_forks(t_data *data)
 		i = 0;
 		while (i < data->n_philo)
 		{
-			pthread_mutex_init(&(forks[i].m), NULL);
+			if (pthread_mutex_init(&(forks[i].m), NULL))
+			{
+				while (i-- > 0)
+					pthread_mutex_destroy(&(forks[i].m));
+				free(forks);
+				break;
+			}
 			++i;
 		}
 	}

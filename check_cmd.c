@@ -94,7 +94,8 @@ int	check_args(int argc, char **argv, t_data *s)
 		if (s->n_philo < 1 || s->tt_die < 1 || s->tt_eat < 1 \
 			|| s->tt_sleep < 1 || (s->n_eat < 1 && argc == 6))
 			return (error_message());
-		pthread_mutex_init(&printf_mutex, NULL);
+		if (pthread_mutex_init(&printf_mutex, NULL))
+			return (-1);
 		s->print_mutex = printf_mutex;
 		return (0);
 	}
