@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 11:36:19 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/07/28 11:36:19 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/10/26 21:15:38 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_usleep(uintmax_t tt_sleep, t_data *data)
 	{
 		if (!(data->all_alive))
 			return (-1);
-		usleep(100);
+		usleep(2 * data->n_philo);
 		gettimeofday(&now, NULL);
 		time_slept = get_timestamp(start_ms);
 	}
