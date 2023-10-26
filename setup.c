@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:43:41 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/10/26 23:30:16 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/10/26 23:40:43 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_fork	*init_forks(t_data *data)
 				while (i-- > 0)
 					pthread_mutex_destroy(&(forks[i].m));
 				free(forks);
-				break;
+				return (NULL);
 			}
 			++i;
 		}
