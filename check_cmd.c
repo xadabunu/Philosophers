@@ -79,7 +79,7 @@ static int	error_message(void)
 	return (-1);
 }
 
-int	check_args(int argc, char **argv, t_data *s)
+int	check_args(int argc, char **argv, t_data *data)
 {
 	t_mutex	printf_mutex;
 	t_time	test;
@@ -88,15 +88,15 @@ int	check_args(int argc, char **argv, t_data *s)
 		return (error_message());
 	else if (gettimeofday(&test, NULL) != -1)
 	{
-		set_argv(s, argv, argc);
-		s->all_alive = true;
-		s->start = get_timestamp(0);
-		if (s->n_philo < 1 || s->tt_die < 1 || s->tt_eat < 1 \
-			|| s->tt_sleep < 1 || (s->n_eat < 1 && argc == 6))
+		set_argv(data, argv, argc);
+		data->all_alive = true;
+		data->start = get_timestamp(0);
+		if (data->n_philo < 1 || data->tt_die < 1 || data->tt_eat < 1 \
+			|| data->tt_sleep < 1 || (data->n_eat < 1 && argc == 6))
 			return (error_message());
 		if (pthread_mutex_init(&printf_mutex, NULL))
 			return (-1);
-		s->print_mutex = printf_mutex;
+		data->print_mutex = printf_mutex;
 		return (0);
 	}
 	return (-1);
