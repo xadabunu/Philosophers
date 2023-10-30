@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:58:53 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/09/13 19:57:13 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:26:10 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	look_for_death(t_data *data, t_philo *philos)
 		i = 0;
 		while (i < data->n_philo)
 		{
-			if (data->tt_die < get_timestamp(philos[i].last_meal))
+			if (data->tt_die <= get_timestamp(philos[i].last_meal))
 				return (dead_philo(data, philos[i]));
 			++i;
 		}
